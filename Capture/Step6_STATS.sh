@@ -1,6 +1,5 @@
 #!/bin/bash
 
-#Creates job for sort and merge BAMs
 
 #GET PROJECT TABLE
 PROJECT_DIR=/path/to/your/directory/;
