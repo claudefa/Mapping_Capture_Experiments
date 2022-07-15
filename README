@@ -63,10 +63,14 @@ bash Capture/Step3_rmdupsPicard_hg19.sh
 ## Step 4 - Filtering by quality, remove secondary aligmnets, unmapped ##### Reliable reads #####
 bash Capture/Step4_filterQual_hg19.sh
 
-## Step 5 - Count number of reads in each step #####
+## Step 5 - Extract OnTarget Reads intersecting with BED file ##### OnTarget reads #####
+bash Capture/Step5_Ontarget_hg19.sh
+
+## Step 6 - Count number of reads in each step #####
 zcat FASTQs/Demutliplex/${sample}_1.fastq.gz | wc -l # count production reads --> then divide by 4
 
-bash Capture/Step5_STATS.sh # here one can decide to do stats per indvidiual hybridization (process everthing without
+bash Capture/Step6_STATS.sh # here one can decide to do stats per indvidiual hybridization (process everthing without
 			    # merging the reads from multiple hyb) or total (after merging from different hyb)#########
 
-## Step 6 - Add all the previously collected information in an spread sheet hDNA=RR/PR #####
+
+## Step 7 - Add all the previously collected information in an spread sheet hDNA=RR/PR #####
