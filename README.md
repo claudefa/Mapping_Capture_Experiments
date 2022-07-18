@@ -4,13 +4,13 @@ July 2022 - keep in mind that this will need to be updated
 
 ## Endogenous or hDNA Quantification to prepare equi-endogenous pools for cature 
 
-**Step 0** - Demultiplexing ##### Production reads #####
-bash hDNA/Step0_demultiplex.sh # previousy you have to gather the barcode information per pool
-bgzip *.fastq 
-mv *gz FASTQ/Demultiplex/
+**Step 0** - Demultiplexing ##### Production reads #####  
+bash hDNA/Step0_demultiplex.sh # previousy you have to gather the barcode information per pool  
+bgzip *.fastq   
+mv *gz FASTQ/Demultiplex/  
 
-**Step 1** - Trimming adapters  ##### 
-bash Step1_trimmingAdaptors_hDNA.sh # Here I do not collapse reads since I am only interested on how many of reads map
+**Step 1** - Trimming adapters  #####  
+bash Step1_trimmingAdaptors_hDNA.sh # Here I do not collapse reads since I am only interested on how many of reads map  
 
 **Step 2** - Mapping ##### Mapped reads #####
 bash hDNA/Step2_mapping_hg19_hDNA.sh
