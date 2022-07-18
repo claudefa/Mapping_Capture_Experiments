@@ -22,11 +22,10 @@ do
         p2o=${OUTDIR}${sample}_2.fastq.gz
         p2o2=${OUTDIR}${sample}_R2_bad.fastq.gz
 	
-	jobName=${qu}/trimming_adaptors${sample}_chr21.sh
+	jobName=${qu}/trimming_adaptors${sample}.sh
 	
-	echo "#!/bin/bash" > ${jobName} 
-	echo "java -jar /apps/TRIMMOMATIC/0.36/trimmomatic-0.36.jar PE -phred33 $p1 $p2 $p1o $p1o2 $p2o $p2o2 ILLUMINACLIP:${DIR}/adapters.fa:2:30:10 SLIDINGWINDOW:5:20" > ${jobName}
-
+	echo "~/bin/fastp -i ${p1} -I ${p2} --out1 ${p1o} --out2 ${p2o} --unpaired1 ${p1o2} --unpaired2 ${p2o2} --detect_adapter_for_pe -p --adapter_sequence=AGATCGGAAGAGCACACGTCTGAACT
+CCAGTCA --adapter_sequence_r2=AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT --trim_poly_g --poly_g_min_len 10 --length_required 30 --html ${OUTDIR}/${sample}.html" > ${jobName}
 	chmod 755 $jobName
 	python3 ~/submit.py -u 1 -c $jobName -n tr${sample} -o ${out}/tr${sample}_shotgun.out -e  ${out}/tr${sample}_shotgun.err -w "3:00:00" 
 
