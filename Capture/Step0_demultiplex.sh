@@ -27,7 +27,7 @@ do
 	jobName=${qu}Demultiplex${pool}.sh
 	
 	echo "#!/bin/bash" > ${jobName}
-	echo "/home/devel/cfontser/bin/sabre/sabre pe -m 2 -c -f $p1 -r $p2 -b ${Dir}/barcode_files/$filepool -u ${outDir}Pool_${pool}_unknown_R1.fastq -w  ${outDir}Pool_${pool}_unknown_R2.fastq;" > ${jobName}
+	echo "/home/devel/cfontser/bin/sabre/sabre pe -m 2 -c -f $p1 -r $p2 -b ${Dir}/scripts/barcode_files/$filepool -u ${outDir}Pool_${pool}_unknown_R1.fastq -w  ${outDir}Pool_${pool}_unknown_R2.fastq;" > ${jobName}
 	chmod 755 $jobName
 	python3 ~/submit.py -u 1 -c $jobName -n h_$pool -o ${out}/2_Demultiplex${filepool}.out -e  ${out}/2_Demultiplex${filepool}.err -w "1:59:00"	
 
