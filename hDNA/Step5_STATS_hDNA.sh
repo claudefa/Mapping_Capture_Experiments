@@ -26,7 +26,8 @@ do
     	# BAM mapped reads
         jobName=${qu}/StatBam.${sample}.sh
     	bamFile=${PATH_BWA}/BAM_hg19/${sample}.bam
-    	statsFile=${PATH_STATS}/BAM_hg19/${sample}.stats
+    	mkdir -p ${PATH_STATS}/BAM_hg19/
+	statsFile=${PATH_STATS}/BAM_hg19/${sample}.stats
 	
 	echo "java -Xmx4g -jar ${PICARDTOOLS}/CollectAlignmentSummaryMetrics.jar INPUT=${bamFile} METRIC_ACCUMULATION_LEVEL=SAMPLE \
 		REFERENCE_SEQUENCE=$FASTA_ASSEMBLY OUTPUT=${statsFile} VALIDATION_STRINGENCY=SILENT"> $jobName
@@ -37,7 +38,8 @@ do
     	# BAM rmdups reads 
         jobName=${qu}/StatBamRmDups.${sample}.sh
     	bamFile=${PATH_BWA}/BAM_RmDups_hg19/${sample}_rmdups.bam
-    	statsFile=${PATH_STATS}/BAM_RmDups_hg19/${sample}_rmdups.stats
+	mkdir -p ${PATH_STATS}/BAM_RmDups_hg19/
+	statsFile=${PATH_STATS}/BAM_RmDups_hg19/${sample}_rmdups.stats
 	
 	echo "java -Xmx4g -jar ${PICARDTOOLS}/CollectAlignmentSummaryMetrics.jar INPUT=${bamFile} METRIC_ACCUMULATION_LEVEL=SAMPLE \
 		REFERENCE_SEQUENCE=$FASTA_ASSEMBLY OUTPUT=${statsFile} VALIDATION_STRINGENCY=SILENT">> $jobName
@@ -48,7 +50,8 @@ do
     	# BAM reliable
         jobName=${qu}/StatBamFilter.${sample}.sh
     	bamFile=${PATH_BWA}/BAM_Filtered_hg19/${sample}_rmdups.qual.bam
-    	statsFile=${PATH_STATS}/BAM_Filtered_hg19/${sample}_rmdups.qual.stats
+   	mkdir -p ${PATH_STATS}/BAM_Filtered_hg19/
+	statsFile=${PATH_STATS}/BAM_Filtered_hg19/${sample}_rmdups.qual.stats
 	
 	echo "java -Xmx4g -jar ${PICARDTOOLS}/CollectAlignmentSummaryMetrics.jar INPUT=${bamFile} METRIC_ACCUMULATION_LEVEL=SAMPLE \
 		REFERENCE_SEQUENCE=$FASTA_ASSEMBLY OUTPUT=${statsFile} VALIDATION_STRINGENCY=SILENT">> $jobName
