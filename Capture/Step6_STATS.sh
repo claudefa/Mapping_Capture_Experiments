@@ -3,8 +3,8 @@
 
 #GET PROJECT TABLE
 PROJECT_DIR=/path/to/your/directory/;
-PATH_BWA=${PROJECT_DIR}/BAM_hg19/;
-PATH_STATS=${PROJECT_DIR}STATS_hg19/BAM/;
+PATH_BWA=${PROJECT_DIR}/;
+PATH_STATS=${PROJECT_DIR}STATS_hg19/;
 
 PICARDTOOLS=/apps/PICARD/1.95/;
 FASTA_ASSEMBLY=/home/devel/marcmont/scratch/snpCalling_hg19/chimp/assembly/hg19.fa;
@@ -25,8 +25,8 @@ do
 
     	# Mapped
         jobName=${qu}/StatBam.${sample}.sh
-    	bamFile=${PATH_BWA}${sample}.sorted.bam
-    	statsFile=${PATH_STATS}${sample}_sorted.stats
+    	bamFile=${PATH_BWA}/BAM_hg19/${sample}.sorted.bam
+    	statsFile=${PATH_STATS}/BAM_hg19/${sample}_sorted.stats
 	
 	echo "java -Xmx4g -jar ${PICARDTOOLS}/CollectAlignmentSummaryMetrics.jar INPUT=${bamFile} METRIC_ACCUMULATION_LEVEL=SAMPLE \
 		REFERENCE_SEQUENCE=$FASTA_ASSEMBLY OUTPUT=${statsFile} VALIDATION_STRINGENCY=SILENT"> $jobName
@@ -38,8 +38,8 @@ do
 
     	# Unique reads 
 	jobName=${qu}/StatBamRmDups.${sample}.sh
-    	bamFile=${PATH_BWA}${sample}_rmdups.bam
-    	statsFile=${PATH_STATS}${sample}_rmdups.stats
+    	bamFile=${PATH_BWA}/BAM_RmDups_hg19/${sample}_rmdups.bam
+    	statsFile=${PATH_STATS}/BAM_RmDups_hg19/${sample}_rmdups.stats
 	
 	echo "java -Xmx4g -jar ${PICARDTOOLS}/CollectAlignmentSummaryMetrics.jar INPUT=${bamFile} METRIC_ACCUMULATION_LEVEL=SAMPLE \
 		REFERENCE_SEQUENCE=$FASTA_ASSEMBLY OUTPUT=${statsFile} VALIDATION_STRINGENCY=SILENT">> $jobName
@@ -49,8 +49,8 @@ do
 
 	# Filtered reads
         jobName=${qu}/StatBamFilter.${sample}.sh
-    	bamFile=${PATH_BWA}${sample}_rmdups.qual.bam
-    	statsFile=${PATH_STATS}${sample}_rmdups.qual.stats
+    	bamFile=${PATH_BWA}/BAM_Filtered_hg19/${sample}_rmdups.qual.bam
+    	statsFile=${PATH_STATS}/BAM_Filtered_hg19/${sample}_rmdups.qual.stats
 	
 	echo "java -Xmx4g -jar ${PICARDTOOLS}/CollectAlignmentSummaryMetrics.jar INPUT=${bamFile} METRIC_ACCUMULATION_LEVEL=SAMPLE \
 		REFERENCE_SEQUENCE=$FASTA_ASSEMBLY OUTPUT=${statsFile} VALIDATION_STRINGENCY=SILENT">> $jobName
@@ -60,8 +60,8 @@ do
 
         # OnTarget reads
         jobName=${qu}/StatBamOnTarget.${sample}.sh
-        bamFile=${PATH_BWA}${sample}_onTarget.bam
-        statsFile=${PATH_STATS}${sample}_onTarget.stats
+        bamFile=${PATH_BWA}/BAM_OnTarget/${sample}_onTarget.bam
+        statsFile=${PATH_STATS}/BAM_OnTarget/${sample}_onTarget.stats
 
         echo "java -Xmx4g -jar ${PICARDTOOLS}/CollectAlignmentSummaryMetrics.jar INPUT=${bamFile} METRIC_ACCUMULATION_LEVEL=SAMPLE \
                 REFERENCE_SEQUENCE=$FASTA_ASSEMBLY OUTPUT=${statsFile} VALIDATION_STRINGENCY=SILENT">> $jobName

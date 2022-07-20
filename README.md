@@ -7,7 +7,7 @@ July 2022 - keep in mind that this will need to be updated
 **Step 0** - Demultiplexing ##### Production reads #####  
 ```bash
 bash hDNA/Step0_demultiplex.sh # previousy you have to gather the barcode information per pool  
-bgzip *.fastq   
+bgzip ${sample}.fastq   
 mv *gz FASTQ/Demultiplex/  
 ```
 **Step 1** - Trimming adapters  #####  
@@ -30,6 +30,10 @@ bash hDNA/Step4_filterQual_hg19_hDNA.sh
 ```bash
 zcat FASTQs/Demutliplex/${sample}_1.fastq.gz | wc -l # count production reads --> then divide by 4  
 bash hDNA/Step5_STATS_hDNA.sh  
+# Extract the rellevant column for each .stats file, only for the First in pair--> Column 9
+grep "FIRST" ${sample}.stats | awk '{print $9}' | uniq | head -n 1 #HQ aligned reads
+# Extracte the high quality aligned bases for paired reads --> Column 10
+grep -w "PAIRED" ${sample}_rmdups.qual.stats | awk '{print $10}' | uniq | head -n 1 # only for the Reliable reads to calculate the coverage
 ```
 **Step 6** - Add all the previously collected information in an spread sheet hDNA=RR/PR #####  
 
@@ -40,6 +44,8 @@ bash hDNA/Step5_STATS_hDNA.sh
 **Step 0** - Demultiplexing ##### Production reads #####  
 ```bash
 bash Capture/Step0_demultiplex.sh # previousy you have to gather the barcode information per pool  
+bgzip ${sample}.fastq
+mv *gz FASTQ/Demultiplex/
 ```
 **Step 1** - Trimming adapters  #####  
 ```bash
